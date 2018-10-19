@@ -48,8 +48,8 @@ my_sender = 'gary.li@tixguru.co'    # 发件人邮箱账号
 my_pass = 'xxxx'              # 发件人邮箱密码
 my_receiver = 'sarcas0705@gmail.com'    # 收件人邮箱账号
 
-def mail(word):
-    ret=(word, 1)
+def mail(words):
+    ret=(words, 1)
     try:
         msg=MIMEText(google_scrape(words),'plain','utf-8')
         msg['From']=formataddr(["Gary Li",my_sender])  # 括号里的对应发件人邮箱昵称、发件人邮箱账号
@@ -61,7 +61,7 @@ def mail(word):
         server.sendmail(my_sender,[my_receiver,],msg.as_string())  # 括号中对应的是发件人邮箱账号、收件人邮箱账号、发送邮件
         server.quit()  # 关闭连接
     except Exception:  # 如果 try 中的语句没有执行，则会执行下面的 ret=False
-        ret=(word, 0)
+        ret=(words, 0)
     return ret
 
 if __name__ == '__main__':
@@ -71,4 +71,4 @@ if __name__ == '__main__':
     for i in topic:
         t = mail(i)
         mail_result.append(t)
-    print("{} @ {}".format(str(mail_result) ,time.strftime("%Y-%m-%d", time.localtime())))
+    print("{} @ {}".format(str(mail_result) ,time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())))
